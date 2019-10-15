@@ -7,4 +7,4 @@ require (
 	gopkg.in/yaml.v2 v2.2.4
 )
 
-replace github.com/cariad/gos3headersetter => ../gos3headersetter
+// replace github.com/cariad/gos3headersetter => ../gos3headersetter
