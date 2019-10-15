@@ -1,0 +1,13 @@
+rules:
+  - header:        Cache-Control
+    when:
+      - extension: .html
+        then:      max-age=3600, public
+      - extension: .css
+        then:      max-age=604800, public
+    else:          max-age=31536000, public
+
+  - header:        Content-Type
+    when:
+      - extension: .woff2
+        then:      font/woff2
