@@ -6,14 +6,6 @@
 
 **s3headersetter** is a CLI application for setting the `Cache-Control` and `Content-Type` HTTP headers on S3 objects.
 
-## Limitations
-
-Only `Cache-Control` and `Content-Type` headers are currently supported.
-
-## Golang module
-
-This application is just a wrapper around the Golang module [cariad/gos3headersetter](https://github.com/cariad/gos3headersetter).
-
 ## Rules
 
 The headers and values to apply must be specified in a YAML file.
