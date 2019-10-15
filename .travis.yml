@@ -1,3 +1,33 @@
 language: go
 go:
   - master
+
+script:
+  - GOOS=linux GOARCH=amd64 go build -o s3headersetter
+  - zip s3headersetter-linux-amd64.zip config-sample.yml s3headersetter
+  - sha1sum s3headersetter-linux-amd64.zip > s3headersetter-linux-amd64.zip.sha1
+
+  - GOOS=darwin GOARCH=amd64 go build -o s3headersetter
+  - zip s3headersetter-macos-amd64.zip config-sample.yml s3headersetter
+  - sha1sum s3headersetter-macos-amd64.zip > s3headersetter-macos-amd64.zip.sha1
+
+  - GOOS=windows GOARCH=amd64 go build -o s3headersetter.exe
+  - zip s3headersetter-windows-amd64.zip config-sample.yml s3headersetter.exe
+  - sha1sum s3headersetter-windows-amd64.zip > s3headersetter-windows-amd64.zip.sha1
+
+deploy:
+  provider: releases
+  api_key:
+    secure: FB0ONKVjbi8oVS9mJcv7uZp8Win1fe7ABS6rtVteL0f4oKmw0DaTY/kjfme9rXRmt+4z9OyAnidphSFRCqktbuzdO89kU2+hF3VaNRYKreR1suqRrGvcmmb/PU+w4U3Y5XctDcEboMdUJS19ZdC6yCK1r+0JNgAC8sHBOdNH4iIPbeDwrvQTZDaP195E9IhzQhGkxnHioGSAtgPegWd5FboVTni4KLx8tcwSzeZc7oZSopnBA0csw1DLRNVdnJm4T8eUzU8aFj10IaS03DPb8YA7hYkmGypIPJZpz177XrEFhlZdbyD4z/1lVqkPG4urtX7q7C/YnyJkM5eyE6knWb5k3lRLsrPc6czFOGw3XwSR/1FNWaeBpidHqfAldJZiIFxnkpT/3yTb4kLVaY9y9CjNiB+wR+MX0PCKzgReDk+XkdGGJ9hvHo67SraQ3InefpTQAFuBVxpVDXRjdsWhqPch9AfH3KZjRdwdQCs+OOVVcn0nh7JCBOtgaFvT8hy18CfNfEBlcLsPxx/p5FbXHhGHVWJcEZV77WyZ1QW+a7vN+46r3cFkbKzzLBVnTkdLm3VkuflbPu+JlGKC4v50KVwSYp2sLB0INDq5todQZNm8VmM7xjirxPCH4ITJLtT+qGg1dljoQazw3dxl+kS1ASpEITeMsDpAciGqux3o0tU=
+  file:
+    - s3headersetter-linux-amd64.zip
+    - s3headersetter-linux-amd64.zip.sha1
+    - s3headersetter-macos-amd64.zip
+    - s3headersetter-macos-amd64.zip.sha1
+    - s3headersetter-windows-amd64.zip
+    - s3headersetter-windows-amd64.zip.sha1
+
+  skip_cleanup: true
+  on:
+    repo: cariad/s3headersetter
+    tags: true
