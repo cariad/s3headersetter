@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"log"
+	"os"
 
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
@@ -28,6 +29,7 @@ func loadConfig(filename string) (*config, error) {
 }
 
 func main() {
+	log.SetOutput(os.Stdout)
 	bucketFlag := flag.String("bucket", "", "name of the bucket to update")
 	prefixFlag := flag.String("key-prefix", "", "(optional) key prefix of objects to update")
 	configFlag := flag.String("config", "", "configuration file name")
